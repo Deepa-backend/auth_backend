@@ -29,16 +29,6 @@ const refreshToken = jwt.sign({
 process.env.JWT_REFRESH_TOKEN_SECRET_KEY
 );
 
-//save into collections
-// const userRefreshToken = await UserRefreshTokenModel.findOne({
-
-//     userId:user._id
-// });
-// // if(userRefreshToken) await userRefreshToken.remove();
-//   await new UserRefreshTokenModel({
-//       userId: user._id,
-//       token: refreshToken,
-//     }).save();
 
 const existingToken = await UserRefreshTokenModel.findOne({ userId: user._id });
     if (existingToken) {
@@ -52,15 +42,7 @@ const existingToken = await UserRefreshTokenModel.findOne({ userId: user._id });
     }).save();
 
 
-//     userId:user._id
-//if want to blacklist rather than remove then use below code
-// if(userRefreshToken)
-// {
-//     userRefreshToken.blacklisted = true;
-//     await userRefreshToken.save();
-// }
 
-// save new  refresh Token
 
 return Promise.resolve({
     accessToken,

@@ -1,38 +1,4 @@
 
-// const setTokensCookies = (res, accessToken, accessTokenExp, refreshToken, refreshTokenExp) => {
-//   const now = Math.floor(Date.now() / 1000);
-
-//   console.log("AccessTokenExp:", accessTokenExp);
-//   console.log("RefreshTokenExp:", refreshTokenExp);
-//   console.log("Current Time (seconds):", now);
-
-//   const accessTokenMaxAge = (accessTokenExp - now) * 1000;
-//   const refreshTokenMaxAge = (refreshTokenExp - now) * 1000;
-
-//   // Validate expiration values
-//   if (isNaN(accessTokenMaxAge) || isNaN(refreshTokenMaxAge)) {
-//     console.error("❌ Invalid token expiration time");
-//     return;
-//   }
-
-//   // Set access token cookie
-//   res.cookie('accesstoken', accessToken, {
-//     httpOnly: true,
-//     secure: true,
-//     maxAge: accessTokenMaxAge,
-//     sameSite: "strict",
-//   });
-
-//   // Set refresh token cookie
-//   res.cookie('refreshtoken', refreshToken, {
-//     httpOnly: true,
-//     secure: true,
-//     maxAge: refreshTokenMaxAge,
-//     sameSite: "strict",
-//   });
-// };
-
-// export default setTokensCookies;
 const setTokensCookies = (res, accessToken, accessTokenExp, refreshToken, refreshTokenExp) => {
   const now = Math.floor(Date.now() / 1000);
 
@@ -46,7 +12,6 @@ const setTokensCookies = (res, accessToken, accessTokenExp, refreshToken, refres
 
   const isProduction = process.env.NODE_ENV === 'production';
 
-  // Debugging logs
   console.log("✅ Setting cookies...");
   console.log("Access token maxAge (ms):", accessTokenMaxAge);
   console.log("Refresh token maxAge (ms):", refreshTokenMaxAge);
@@ -54,10 +19,10 @@ const setTokensCookies = (res, accessToken, accessTokenExp, refreshToken, refres
 
   res.cookie('accesstoken', accessToken, {
     httpOnly: true,
-    secure: isProduction,                    // Only HTTPS in prod
+    secure: isProduction, // Must be true in production (HTTPS)
     maxAge: accessTokenMaxAge,
-    sameSite: isProduction ? 'None' : 'Lax', // Required for cross-site cookies
-    path: '/',                               // Ensure it's accessible to all routes
+    sameSite: isProduction ? 'None' : 'Lax',
+    path: '/',
   });
 
   res.cookie('refreshtoken', refreshToken, {
@@ -68,5 +33,6 @@ const setTokensCookies = (res, accessToken, accessTokenExp, refreshToken, refres
     path: '/',
   });
 };
+
 
 export default setTokensCookies;

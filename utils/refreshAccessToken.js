@@ -6,11 +6,9 @@ import verifyRefreshToken from "./verifyRefreshToken.js";
 
 const refreshAccessToken = async (req) => {
   try {
-   // const oldRefreshToken = req.cookies.refreshToken;
+
    const oldRefreshToken = req.cookies?.refreshtoken;
-  // console.log("Cookies received:", req.cookies); // ✅ Log cookies
-  //   console.log("Old refresh token:", oldRefreshToken); 
-    // Verify refresh token
+
     const { tokenDetails, error } = await verifyRefreshToken(oldRefreshToken);
     if (error || !tokenDetails) {
       return { error: true, message: "Invalid or expired refresh token" };

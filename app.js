@@ -6,7 +6,7 @@ import './config/connectDb.js';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js'
-import './config/passport-jwt-strategy.js'
+import './config/passport-google-strategy.js';
 
 const app = express()
 const PORT =process.env.PORT
@@ -18,7 +18,11 @@ const corsOptions = {
     origin: process.env.NODE_ENV === 'production' ? process.env.Frontend_HOST : true,
     credentials: true,
     optionsSuccessStatus: 200
+
+    
 }
+
+
 
 app.use(cors(corsOptions))
 //json
